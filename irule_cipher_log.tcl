@@ -1,7 +1,17 @@
-##### This irule sends syslog based messages containing the ciphers used clientside & serverside to a SIEM using High Speed Logging
-##### SNI = UNKNOWN as fallback
-##### example <134>Dec 12 10:18:52 f5-hostname.internal info cipherlog: clientssl| tcpip.client.ip=56.xx.xx.xx| tls.cipher.version=TLSv1.2| tls.cipher.name=ECDHE-RSA-AES256-GCM-SHA384| tls.cipher.bits=256| vip=/Common/external_vs_xx| ssl.sni=ex.ample.com
-##### Can use this to determine TLS profile strategy, tracking used ciphers, eliminate legacy ciphers etc. 
+#
+# TLS Cipher Logging iRule
+# ------------------------
+# Logs client-side and server-side TLS cipher details to a SIEM using HSL.
+# Includes SNI when available, otherwise defaults to "UNKNOWN".
+#
+# Requirements:
+#  - Log publisher: /Common/log_publisher_xxx
+#  - Virtual server must use ClientSSL and/or ServerSSL profiles
+#
+# Purpose:
+#  Helps analyze real-world cipher usage, validate TLS strategy,
+#  and identify legacy or weak ciphers in production traffic.
+#
 
 when CLIENTSSL_HANDSHAKE {
     set timestamp [clock format [clock seconds] -format {%b %e %H:%M:%S}]
