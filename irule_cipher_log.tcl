@@ -37,7 +37,7 @@ tls.cipher.bits=[SSL::cipher bits]|\
 vip=[virtual name]|\
 ssl.sni=$sni_name"
 
-        HSL::send $hsl "<134>$timestamp $static::tcl_platform(machine) info cipherlog: clientssl| $log"
+        HSL::send $hsl "<134>$timestamp $static::tcl_platform(machine) info cipherlog: |tls.side=clientssl| $log"
     
 }
 
@@ -52,6 +52,6 @@ tls.cipher.bits=[SSL::cipher bits]|\
 vip=[virtual name]|\
 ssl.sni=$sni_name"
 
-        HSL::send $hsl "<134>$timestamp2 $static::tcl_platform(machine) info cipherlog: serverssl| $log"
+        HSL::send $hsl "<134>$timestamp2 $static::tcl_platform(machine) info cipherlog: |tls.side=serverssl| $log"
     
 }
